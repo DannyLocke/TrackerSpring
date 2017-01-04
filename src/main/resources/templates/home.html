@@ -6,14 +6,60 @@
 </head>
 <body>
 
-
+{{^user}}
 <form action="/login" method="post">
     <input type="hidden" placeholder="id" name="idNum"/>
     <input type="text" placeholder="Enter your name" name="loginName"/>
     <input type="text" placeholder="Enter your password" name="loginPassword"/>
     <button type="submit">Login</button>
 </form>
+{{/user}}
 
+
+
+{{#user}}
+<form action = "/createPost" method = "post">
+    <input type = "text" placeholder = "Enter your post" name = "createPost"/>
+    <button type="submit">Submit New Post</button>
+</form>
+
+<br>
+
+<form action = "/updatePost" method = "post">
+    <input type = "text" placeholder = "Post #" name = "num"/>
+    <input type = "text" placeholder="Edit post" name = "updatePost"/>
+    <button type="submit">Update Post</button>
+</form>
+
+<br>
+
+<form action = "/deletePost" method = "post">
+    <input type = "text" placeholder = "Which post do you want to delete?" name = "deletePost"/>
+    <button type="submit">Delete Post</button>
+</form>
+
+<br>
+<br>
+<br>
+
+{{loginName}}'s tracked Twitter posts:
+
+<ul>
+
+    {{#createPost}}
+    <li>
+        Post ID: {{id}}...  {{text}}
+    </li>
+    {{/createPost}}
+
+</ul>
+
+
+
+<form action="/logout" method="post">
+    <button type="submit">Logout</button>
+</form>
+{{/user}}
 
 </body>
 </html>

@@ -30,27 +30,6 @@ public class TrackerSpringController {
     @Autowired
     TwitterRepository tweets;
 
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public String login (HttpSession session, String loginName, String loginPassword) throws Exception {
-        User user = users.findFirstByName(loginName);
-        if(user == null){
-            System.out.println(loginPassword);
-            user = new User(loginName, PasswordStorage.createHash(loginPassword));
-            users.save(user);
-        }
-        else if (!PasswordStorage.verifyPassword(loginPassword, user.password)){
-            throw new Exception("Incorrect Password");
-        }
-        session.setAttribute("userName", loginName);
-        return "redirect:/";
-    }//end login()
-
-    @RequestMapping(path = "/logout", method = RequestMethod.POST)
-    public String logout(HttpSession session){
-        session.invalidate();
-        return "redirect:/";
-    }
-
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home (HttpSession session, Model model, String author) throws Exception {
 
@@ -71,6 +50,26 @@ public class TrackerSpringController {
         model.addAttribute("tweets", twitterList);
         return "home";
     }//end home()
+
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public String login (HttpSession session, String loginName, String loginPassword) throws Exception {
+        User user = users.findFirstByName(loginName);
+        if(user == null){
+            user = new User(loginName, PasswordStorage.createHash(loginPassword));
+            users.save(user);
+        }
+        else if (!PasswordStorage.verifyPassword(loginPassword, user.password)){
+            throw new Exception("Incorrect Password");
+        }
+        session.setAttribute("userName", loginName);
+        return "redirect:/";
+    }//end login()
+
+    @RequestMapping(path = "/logout", method = RequestMethod.POST)
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/";
+    }
 
     @RequestMapping(path = "/createPost", method = RequestMethod.POST)
     public String createPost (HttpSession session, String author, String post) throws Exception {
@@ -119,7 +118,7 @@ public class TrackerSpringController {
         if(users.count() == 0){
             User user =  new User();
             user.name = "Danny";
-            user.password = PasswordStorage.createHash("password");
+            user.password = PasswordStorage.createHash("loginPassword");
             users.save(user);
         }
     }//end init()
