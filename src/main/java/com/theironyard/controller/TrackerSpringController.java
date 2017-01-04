@@ -51,25 +51,23 @@ public class TrackerSpringController {
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home (HttpSession session, Model model, String author, String post) throws Exception {
+    public String home (HttpSession session, Model model, String author) throws Exception {
 
         String userName = (String) session.getAttribute("loginName");
-
-        List<Twitter> tweetList;
 
         if (userName != null) {
             User user = users.findFirstByName(userName);
             model.addAttribute("user", user);
         }
 
+        List<Twitter> twitterList;
+
         if (author != null) {
-            tweetList = tweets.findByAuthor(author);
-        } else if (post != null) {
-            tweetList = tweets.findByPost(post);
+            twitterList = (List<Twitter>) tweets.findByAuthor(author);
         } else{
-            tweetList = (List<Twitter>) tweets.findAll();
+            twitterList = (List<Twitter>) tweets.findAll();
         }
-        model.addAttribute("tweets", tweetList);
+        model.addAttribute("tweets", twitterList);
         return "home";
     }//end home()
 
@@ -92,10 +90,9 @@ public class TrackerSpringController {
         String userName = (String) session.getAttribute("loginName");
         User user = users.findFirstByName(userName);
 
-        String deletePost = request.queryParams("deletePost");
+        String deletePost = (String) session.getAttribute("deletePost");
 
-        int x = Integer.parseInt(deletePost);
-        deletePosts(x);
+        deletePost(session, author, post);
 
         return "redirect:/";
     }//end deletePost()
@@ -106,15 +103,14 @@ public class TrackerSpringController {
         String userName = (String) session.getAttribute("loginName");
         User user = users.findFirstByName(userName);
 
-        String num = request.queryParams("num");
+        String num = (String) session.getAttribute("num");
         int x = Integer.parseInt(num);
 
-        String updatePost = request.queryParams("updatePost");
+        String updatePost = (String) session.getAttribute("updatePost");
 
-        updatePosts(x, updatePost);
+        updatePost(session, author, post);
 
-        response.redirect("/");
-        return "";
+        return "redirect:/";
     }//end updatePost()
 
     @PostConstruct

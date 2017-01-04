@@ -35,6 +35,10 @@ public class Twitter {
         this.post = post;
     }
 
+    public Twitter(String author){
+        this.author = author;
+    }
+
     public Twitter (){
 
     }
