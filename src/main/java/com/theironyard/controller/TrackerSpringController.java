@@ -31,16 +31,17 @@ public class TrackerSpringController {
     TwitterRepository tweets;
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public String login (HttpSession session, String userName, String password) throws Exception {
-        User user = users.findFirstByName(userName);
+    public String login (HttpSession session, String loginName, String loginPassword) throws Exception {
+        User user = users.findFirstByName(loginName);
         if(user == null){
-            user = new User(userName, PasswordStorage.createHash(password));
+            System.out.println(loginPassword);
+            user = new User(loginName, PasswordStorage.createHash(loginPassword));
             users.save(user);
         }
-        else if (!PasswordStorage.verifyPassword(password, user.password)){
+        else if (!PasswordStorage.verifyPassword(loginPassword, user.password)){
             throw new Exception("Incorrect Password");
         }
-        session.setAttribute("userName", userName);
+        session.setAttribute("userName", loginName);
         return "redirect:/";
     }//end login()
 
@@ -53,10 +54,10 @@ public class TrackerSpringController {
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home (HttpSession session, Model model, String author) throws Exception {
 
-        String userName = (String) session.getAttribute("loginName");
+        String loginName = (String) session.getAttribute("loginName");
 
-        if (userName != null) {
-            User user = users.findFirstByName(userName);
+        if (loginName != null) {
+            User user = users.findFirstByName(loginName);
             model.addAttribute("user", user);
         }
 
@@ -74,8 +75,8 @@ public class TrackerSpringController {
     @RequestMapping(path = "/createPost", method = RequestMethod.POST)
     public String createPost (HttpSession session, String author, String post) throws Exception {
 
-        String userName = (String) session.getAttribute("loginName");
-        User user = users.findFirstByName(userName);
+        String loginName = (String) session.getAttribute("loginName");
+        User user = users.findFirstByName(loginName);
 
         Twitter twitter = new Twitter(author, post);
         tweets.save(twitter);
@@ -87,8 +88,8 @@ public class TrackerSpringController {
     @RequestMapping(path = "/deletePost", method = RequestMethod.POST)
     public String deletePost (HttpSession session, String author, String post) throws Exception {
 
-        String userName = (String) session.getAttribute("loginName");
-        User user = users.findFirstByName(userName);
+        String loginName = (String) session.getAttribute("loginName");
+        User user = users.findFirstByName(loginName);
 
         String deletePost = (String) session.getAttribute("deletePost");
 
@@ -100,8 +101,8 @@ public class TrackerSpringController {
     @RequestMapping(path = "/updatePost", method = RequestMethod.POST)
     public String updatePost (HttpSession session, String author, String post) throws Exception {
 
-        String userName = (String) session.getAttribute("loginName");
-        User user = users.findFirstByName(userName);
+        String loginName = (String) session.getAttribute("loginName");
+        User user = users.findFirstByName(loginName);
 
         String num = (String) session.getAttribute("num");
         int x = Integer.parseInt(num);
