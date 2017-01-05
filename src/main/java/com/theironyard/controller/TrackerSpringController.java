@@ -61,7 +61,7 @@ public class TrackerSpringController {
         else if (!PasswordStorage.verifyPassword(loginPassword, user.password)){
             throw new Exception("Incorrect Password");
         }
-        session.setAttribute("userName", loginName);
+        session.setAttribute("loginName", loginName);
         return "redirect:/";
     }//end login()
 
@@ -76,9 +76,13 @@ public class TrackerSpringController {
 
         String loginName = (String) session.getAttribute("loginName");
         User user = users.findFirstByName(loginName);
+        int id = user.getId();
 
-        Twitter twitter = new Twitter(author, post);
-        tweets.save(twitter);
+        if(author != null && post != null) {
+
+            Twitter twitter = new Twitter(author, post, user);
+            tweets.save(twitter);
+        }
 
         return "redirect:/";
 
