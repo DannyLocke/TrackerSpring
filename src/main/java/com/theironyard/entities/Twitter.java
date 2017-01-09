@@ -74,4 +74,5 @@ public class Twitter {
     public void setUser(User user) {
         this.user = user;
     }
+
 }//end class Twitter

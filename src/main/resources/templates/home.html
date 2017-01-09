@@ -6,6 +6,7 @@
 </head>
 <body>
 
+
 {{^user}}
 <form action="/login" method="post">
     <input type="hidden" placeholder="id" name="idNum"/>
@@ -23,7 +24,7 @@
     <button type="submit">Submit New Post</button>
 </form>
 
-<br>
+<br><br>
 
 <form action = "/updatePost" method = "post">
     <input type = "text" placeholder = "Post #" name = "num"/>
@@ -31,16 +32,15 @@
     <button type="submit">Update Post</button>
 </form>
 
-<br>
+<br><br>
 
 <form action = "/deletePost" method = "post">
     <input type = "text" placeholder = "Which post do you want to delete?" name = "deletePost"/>
     <button type="submit">Delete Post</button>
 </form>
 
-<br>
-<br>
-<br>
+<br><br>
+
 
 {{name}}'s tracked Twitter posts:
 
@@ -53,6 +53,8 @@
     {{/tweets}}
 
 </ul>
+
+<br><br>
 
 
 

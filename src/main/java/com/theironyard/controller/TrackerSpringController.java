@@ -30,6 +30,7 @@ public class TrackerSpringController {
     @Autowired
     TwitterRepository tweets;
 
+    //path for HOME
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home (HttpSession session, Model model, String author) throws Exception {
 
@@ -51,6 +52,7 @@ public class TrackerSpringController {
         return "home";
     }//end home()
 
+    //path for login
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login (HttpSession session, String loginName, String loginPassword) throws Exception {
         User user = users.findFirstByName(loginName);
@@ -71,6 +73,7 @@ public class TrackerSpringController {
         return "redirect:/";
     }
 
+    //path for new post ... THIS IS NOT WORKING 1/8/17
     @RequestMapping(path = "/createPost", method = RequestMethod.POST)
     public String createPost (HttpSession session, String author, String post) throws Exception {
 
@@ -88,6 +91,7 @@ public class TrackerSpringController {
 
     }//end createPost()
 
+    //path for deleting post ... NOT WORKING 1/8/17
     @RequestMapping(path = "/deletePost", method = RequestMethod.POST)
     public String deletePost (HttpSession session, String author, String post) throws Exception {
 
@@ -101,6 +105,7 @@ public class TrackerSpringController {
         return "redirect:/";
     }//end deletePost()
 
+    //path for updating post ... NOT WORKING 1/8/17
     @RequestMapping(path = "/updatePost", method = RequestMethod.POST)
     public String updatePost (HttpSession session, String author, String post) throws Exception {
 
@@ -116,6 +121,7 @@ public class TrackerSpringController {
 
         return "redirect:/";
     }//end updatePost()
+
 
     @PostConstruct
     public void init() throws PasswordStorage.CannotPerformOperationException {
