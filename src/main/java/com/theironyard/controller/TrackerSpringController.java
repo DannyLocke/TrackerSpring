@@ -73,7 +73,7 @@ public class TrackerSpringController {
         return "redirect:/";
     }
 
-    //path for new post ... THIS IS NOT WORKING 1/8/17
+    //path for new post
     @RequestMapping(path = "/createPost", method = RequestMethod.POST)
     public String createPost (HttpSession session, String author, String post) throws Exception {
 
@@ -83,7 +83,7 @@ public class TrackerSpringController {
 
         if(author != null && post != null) {
 
-            Twitter twitter = new Twitter(author, post, user);
+            Twitter twitter = new Twitter(id, author, post, user);
             tweets.save(twitter);
         }
 
@@ -91,7 +91,7 @@ public class TrackerSpringController {
 
     }//end createPost()
 
-    //path for deleting post ... NOT WORKING 1/8/17
+    //path for deleting post
     @RequestMapping(path = "/deletePost", method = RequestMethod.POST)
     public String deletePost (HttpSession session, String author, String post) throws Exception {
 
@@ -105,7 +105,7 @@ public class TrackerSpringController {
         return "redirect:/";
     }//end deletePost()
 
-    //path for updating post ... NOT WORKING 1/8/17
+    //path for updating post
     @RequestMapping(path = "/updatePost", method = RequestMethod.POST)
     public String updatePost (HttpSession session, String author, String post) throws Exception {
 

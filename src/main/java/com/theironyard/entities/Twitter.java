@@ -24,7 +24,8 @@ public class Twitter {
     @ManyToOne
     User user;
 
-    public Twitter(String author, String post, User user) {
+    public Twitter(int id, String author, String post, User user) {
+        this.id = id;
         this.author = author;
         this.post = post;
         this.user = user;

@@ -20,13 +20,15 @@
 
 {{#user}}
 <form action = "/createPost" method = "post">
-    <input type = "text" placeholder = "Enter your post" name = "createPost"/>
+    <input type="text" placeholder="Post Author" name="author"/>
+    <input type = "text" placeholder = "Enter your post" name = "post"/>
     <button type="submit">Submit New Post</button>
 </form>
 
 <br><br>
 
 <form action = "/updatePost" method = "post">
+    <input type="hidden" placeholder="id" name="idNum"/>
     <input type = "text" placeholder = "Post #" name = "num"/>
     <input type = "text" placeholder="Edit post" name = "updatePost"/>
     <button type="submit">Update Post</button>
@@ -48,7 +50,7 @@
 
     {{#tweets}}
     <li>
-        Post ID: {{author}}...  {{post}}
+        Post {{id}}: {{author}}...  {{post}}
     </li>
     {{/tweets}}
 
