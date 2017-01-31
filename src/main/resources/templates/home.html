@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thought Repository</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -28,8 +33,7 @@
 <br><br>
 
 <form action = "/updatePost" method = "post">
-    <input type="hidden" placeholder="id" name="idNum"/>
-    <input type = "text" placeholder = "Post #" name = "num"/>
+    <input type = "text" placeholder = "Post #" name = "id"/>
     <input type = "text" placeholder="Edit post" name = "updatePost"/>
     <button type="submit">Update Post</button>
 </form>
@@ -37,7 +41,7 @@
 <br><br>
 
 <form action = "/deletePost" method = "post">
-    <input type = "text" placeholder = "Which post do you want to delete?" name = "deletePost"/>
+    <input type = "text" placeholder = "Which post do you want to delete?" name = "id"/>
     <button type="submit">Delete Post</button>
 </form>
 

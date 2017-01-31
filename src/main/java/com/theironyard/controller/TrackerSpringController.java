@@ -93,34 +93,35 @@ public class TrackerSpringController {
 
     //path for deleting post
     @RequestMapping(path = "/deletePost", method = RequestMethod.POST)
-    public String deletePost (HttpSession session, String author, String post) throws Exception {
+    public String deletePost (Integer id) throws Exception {
 
-        String loginName = (String) session.getAttribute("loginName");
-        User user = users.findFirstByName(loginName);
-
-        String deletePost = (String) session.getAttribute("deletePost");
-
-        deletePost(session, author, post);
+        tweets.delete(id);
 
         return "redirect:/";
     }//end deletePost()
 
+//    <form action = "/deletePost" method = "post">
+//    <input type = "text" placeholder = "Which post do you want to delete?" name = "deletePost"/>
+//    <button type="submit">Delete Post</button>
+//    </form>
+
     //path for updating post
     @RequestMapping(path = "/updatePost", method = RequestMethod.POST)
-    public String updatePost (HttpSession session, String author, String post) throws Exception {
+    public String updatePost (Integer id, String updatePost) throws Exception {
 
-        String loginName = (String) session.getAttribute("loginName");
-        User user = users.findFirstByName(loginName);
-
-        String num = (String) session.getAttribute("num");
-        int x = Integer.parseInt(num);
-
-        String updatePost = (String) session.getAttribute("updatePost");
-
-        updatePost(session, author, post);
+        Twitter twitter = tweets.findOne(id);
+        twitter.setPost(updatePost);
+        tweets.save(twitter);
 
         return "redirect:/";
     }//end updatePost()
+
+//    <form action = "/updatePost" method = "post">
+//    <input type="hidden" placeholder="id" name="idNum"/>
+//    <input type = "text" placeholder = "Post #" name = "num"/>
+//    <input type = "text" placeholder="Edit post" name = "updatePost"/>
+//    <button type="submit">Update Post</button>
+//    </form>
 
 
     @PostConstruct

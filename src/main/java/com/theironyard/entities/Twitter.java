@@ -36,6 +36,10 @@ public class Twitter {
         this.post = post;
     }
 
+    public Twitter(int id){
+        this.id = id;
+    }
+
     public Twitter(String author){
         this.author = author;
     }
