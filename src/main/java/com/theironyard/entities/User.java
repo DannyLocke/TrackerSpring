@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="users")
+@Table(name="users") //to house all user data
 
 public class User {
 

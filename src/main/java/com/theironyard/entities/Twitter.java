@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="tweets")
+@Table(name="tweets") //to house all twitter entries
 public class Twitter {
 
     @Id
